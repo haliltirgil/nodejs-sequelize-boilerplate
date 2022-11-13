@@ -8,3 +8,7 @@ const start = async () => {
 }
 
 start();
+
+/**
+ * user - company - department - roles
+ */
