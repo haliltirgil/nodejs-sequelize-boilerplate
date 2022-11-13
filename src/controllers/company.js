@@ -1,51 +1,60 @@
-const createCompany = async (_req, res) => {
+const CompanyDataAccess = require('../data-access/company');
+
+const createCompany = async (req, res) => {
+    let company;
+
     try {
-        return res.status(200).json({
-            message: "Hoşgeéldin kanks!"
-        });
+        company = await CompanyDataAccess.createCompany(req.body);
     } catch (error) {
         return res.status(400).send(error);
     }
+
+    return res.status(201).send(company);
 };
 
 const getAllCompanies = async (_req, res) => {
+    let allCompanies;
+
     try {
-        return res.status(200).json({
-            message: "Hoşgeéldin kanks!"
-        });
+        allCompanies = await CompanyDataAccess.getAllCompanies();
     } catch (error) {
         return res.status(400).send(error);
     }
+
+    return res.status(200).send(allCompanies);
 };
 
-const getCompanyById = async (_req, res) => {
+const getCompanyById = async (req, res) => {
+    let company;
+
     try {
-        return res.status(200).json({
-            message: "Hoşgeéldin kanks!"
-        });
+        company = await CompanyDataAccess.getCompanyById(req.params.id);
     } catch (error) {
         return res.status(400).send(error);
     }
+
+    return res.status(200).send(company);
+
 };
 
-const updateCompanyById = async (_req, res) => {
+const updateCompanyById = async (req, res) => {
     try {
-        return res.status(200).json({
-            message: "Hoşgeéldin kanks!"
-        });
+        await CompanyDataAccess.updateCompanyById(req.params.id, req.body);
     } catch (error) {
         return res.status(400).send(error);
     }
+
+    res.status(204).send({});
 };
 
-const deleteCompanyById = async (_req, res) => {
+const deleteCompanyById = async (req, res) => {
     try {
-        return res.status(200).json({
-            message: "Hoşgeéldin kanks!"
-        });
+        await CompanyDataAccess.deleteCompanyById(req.params.id);
     } catch (error) {
         return res.status(400).send(error);
     }
+
+    return res.status(204).send({});
 };
 
 module.exports = { createCompany, getAllCompanies, getCompanyById, updateCompanyById, deleteCompanyById };
