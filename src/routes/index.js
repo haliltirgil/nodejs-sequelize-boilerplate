@@ -1,9 +1,16 @@
 require("dotenv/config");
 const express = require("express");
-const testRouter = require("./test");
+
+const employeeRouter = require("./employee");
+const companyRouter = require("./company");
+const departmentRouter = require("./department");
+const projectRouter = require("./project");
 
 const router = express.Router();
 
-router.use('/test', testRouter);
+router.use('/employees', employeeRouter);
+router.use('/companies', companyRouter);
+router.use('/departments', departmentRouter);
+router.use('/projects', projectRouter);
 
 module.exports = router;
