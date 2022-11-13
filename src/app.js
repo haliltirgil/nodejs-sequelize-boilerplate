@@ -10,6 +10,9 @@ app.set('trust proxy', true);
 app.use(cors());
 app.use(json());
 
+const db = require('./models');
+db.sequelize.sync();
+
 app.use('/api/v1', router);
 
 module.exports = app;
