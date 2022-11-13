@@ -5,6 +5,7 @@ const createEmployee = async (req, res) => {
 
     try {
         employee = await EmployeeDataAccess.createEmployee(req.body);
+        await employee.addProjects(req.body.projects);
     } catch (error) {
         return res.status(400).send(error);
     }
