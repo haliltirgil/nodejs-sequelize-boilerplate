@@ -6,7 +6,7 @@ const router = express.Router();
 router.post('/create-project', createProject);
 router.get('/get-all-projects', getAllProjects);
 router.get('/get-project-by-id/:id', getProjectById);
-router.patch('/update-project-by-id/:id', updateProjectById);
+router.put('/update-project-by-id/:id', updateProjectById);
 router.delete('/delete-project-by-id/:id', deleteProjectById);
 
 module.exports = router; 
