@@ -13,13 +13,7 @@ const createCompany = async (req, res) => {
 };
 
 const getAllCompanies = async (_req, res) => {
-    let allCompanies;
-
-    try {
-        allCompanies = await CompanyDataAccess.getAllCompanies();
-    } catch (error) {
-        return res.status(400).send(error);
-    }
+    const allCompanies = await CompanyDataAccess.getAllCompanies();
 
     return res.status(200).send(allCompanies);
 };
