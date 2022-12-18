@@ -1,17 +1,5 @@
 const Sequelize = require('sequelize');
-// @ts-ignore
-const sequelize = new Sequelize(process.env.DB, process.env.USER, process.env.PASSWORD, {
-    host: process.env.HOST,
-    port: +process.env.PORT,
-    dialect: process.env.dialect,
-    pool: {
-        max: +process.env.pool_max,
-        min: +process.env.pool_min,
-        acquire: +process.env.pool_acquire,
-        idle: +process.env.pool_idle
-    }
-});
-
+const sequelize = require('../services/database');
 
 const db = {};
 
