@@ -35,7 +35,6 @@ const getProjectById = async (req, res) => {
     }
 
     return res.status(200).send(project);
-
 };
 
 const updateProjectById = async (req, res) => {
@@ -55,7 +54,7 @@ const deleteProjectById = async (req, res) => {
         return res.status(400).send(error);
     }
 
-    return res.status(204).send({});
+    return res.status(200).send({});
 };
 
 module.exports = { createProject, getAllProjects, getProjectById, updateProjectById, deleteProjectById };
