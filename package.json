@@ -16,13 +16,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/haliltirgil/nodejs-typeorm-boilerplate.git"
+    "url": "git+https://github.com/haliltirgil/nodejs-sequelize-boilerplate.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/haliltirgil/nodejs-typeorm-boilerplate/issues"
+    "url": "https://github.com/haliltirgil/nodejs-sequelize-boilerplate/issues"
   },
   "homepage": "https://github.com/haliltirgil/nodejs-typeorm-boilerplate#readme",
   "dependencies": {
