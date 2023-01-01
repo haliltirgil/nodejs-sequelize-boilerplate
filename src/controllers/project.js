@@ -14,13 +14,7 @@ const createProject = async (req, res) => {
 };
 
 const getAllProjects = async (_req, res) => {
-    let allProjects;
-
-    try {
-        allProjects = await ProjectDataAccess.getAllProjects();
-    } catch (error) {
-        return res.status(400).send(error);
-    }
+    const allProjects = await ProjectDataAccess.getAllProjects();
 
     return res.status(200).send(allProjects);
 };
@@ -40,6 +34,7 @@ const getProjectById = async (req, res) => {
 const updateProjectById = async (req, res) => {
     try {
         await ProjectDataAccess.updateProjectById(req.params.id, req.body);
+        console.log("amk project");
     } catch (error) {
         return res.status(400).send(error);
     }

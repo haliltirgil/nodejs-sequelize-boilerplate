@@ -14,13 +14,7 @@ const createEmployee = async (req, res) => {
 };
 
 const getAllEmployees = async (_req, res) => {
-    let allEmployees;
-
-    try {
-        allEmployees = await EmployeeDataAccess.getAllEmployees();
-    } catch (error) {
-        return res.status(400).send(error);
-    }
+    const allEmployees = await EmployeeDataAccess.getAllEmployees();
 
     return res.status(200).send(allEmployees);
 };
@@ -41,6 +35,7 @@ const getEmployeeById = async (req, res) => {
 const updateEmployeeById = async (req, res) => {
     try {
         await EmployeeDataAccess.updateEmployeeById(req.params.id, req.body);
+        console.log("amk");
     } catch (error) {
         return res.status(400).send(error);
     }

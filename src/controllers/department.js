@@ -13,13 +13,7 @@ const createDepartment = async (req, res) => {
 };
 
 const getAllDepartments = async (_req, res) => {
-    let allDepartments;
-
-    try {
-        allDepartments = await DepartmentDataAccess.getAllDepartments();
-    } catch (error) {
-        return res.status(400).send(error);
-    }
+    const allDepartments = await DepartmentDataAccess.getAllDepartments();
 
     return res.status(200).send(allDepartments);
 };
