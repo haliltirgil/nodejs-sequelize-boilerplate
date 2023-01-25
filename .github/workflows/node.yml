@@ -1,9 +1,3 @@
-# name: Sequelize Boilerplate CI
-# on:
-#   push:
-#     branches: [main]
-#   pull_request:
-#     branches: [main]
 # jobs:
 #   test:
 #     env:
@@ -35,18 +29,21 @@
 #       - run: npm install
 #       - run: npm run test-coverage
 #     #   - run: npm run start
-name: Running Tests
-
-on: [push]
-
+name: Sequelize Boilerplate CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 jobs:
-  Test:
+  test:
     runs-on: ubuntu-latest
-
+    strategy:
+      matrix:
+        node-version: [14.x, 16.x]
     services:
       postgres:
         image: postgres
-
         env:
           POSTGRES_PASSWORD: 12345
           POSTGRES_USER: postgres
@@ -58,20 +55,20 @@ jobs:
           --health-retries 5
         ports:
           - 5432:5432
-
     steps:
-      # run steps required in the workflow
       - name: Checkout repository
         uses: actions/checkout@v2
-
-      - name: Set up Node.js 14.x
+      - name: Set up Node.js version ${{ matrix.node-version }}
         uses: actions/setup-node@v1
         with:
-          node-version: 14.x
-
+          node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm install
-
+      - name: Connect to PostgreSQL and Create
+        run: node client.js
+        env:
+          POSTGRES_HOST: postgres
+          POSTGRES_PORT: 5432
       - name: run unit tests
         run: npm run test-coverage
         env:
