@@ -1,17 +1,85 @@
-name: NASA Project CI
+name: Sequelize Boilerplate CI
 on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
 jobs:
-  build:
+  # label of the container job
+  postgres-job:
+    # containers must run in Linux based operating systems
     runs-on: ubuntu-latest
+    # Docker Hub image that `postgres-job` executes in
+    container: node:latest
+
+    # service containers to run with `postgres-job`
+    services:
+      # label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres:latest
+        # service environment variables
+        # `POSTGRES_HOST` is `postgres`
+        env:
+          # optional (defaults to `postgres`)
+          POSTGRES_DB: postgres_db
+          # required
+          POSTGRES_PASSWORD: postgres_password
+          # optional (defaults to `5432`)
+          POSTGRES_PORT: 5432
+          # optional (defaults to `postgres`)
+          POSTGRES_USER: postgres_user
+        ports:
+          # maps tcp port 5432 on service container to the host
+          - 5432:5432
+        # set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     steps:
-      - uses: actions/checkout@v2
-      - name: Use Node.js version 16
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16'
-      - run: npm install
-      - run: npm run start
+      - name: Install PostgreSQL client
+        run: |
+          apt-get update
+          apt-get install --yes postgresql-client
+
+      # queries database with postgres client
+      - name: Query database
+        run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT 1;'
+        env:
+          # postgress password is required; alternatively, you can run:
+          # `PGPASSWORD=postgres_password psql ...`
+          PGPASSWORD: postgres_password
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
+# jobs:
+#   test:
+#     env:
+#       CI: true
+#       NODE_ENV: 'test'
+#       DB_NAME: 'SequelizeBoilerplate'
+#       DB_USER: 'postgres'
+#       DB_PASS: '12345'
+#       DB_HOST: localhost"
+#       TEST_DB_NAME: SequelizeBoilerplateTest"
+#       TEST_DB_USER: postgres"
+#       TEST_DB_PASS: 12345"
+#       TEST_DB_HOST: localhost"
+#     strategy:
+#       matrix:
+#         node-version: [14.x, 16.x]
+#         pg-version: [x.4.x, x.6.x]
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - name: Use Node.js version ${{ matrix.node-version }}
+#         uses: actions/setup-node@v2
+#         with:
+#           node-version: ${{ matrix.node-version }}
+#       - name: Use Pg from Github Actions
+#         uses: supercharge/falangilan,
+#         with:
+#           pg-version: ${{ matrix.pg-version }}
+#       - run: npm install
+#       - run: npm run test-coverage
+#     #   - run: npm run start

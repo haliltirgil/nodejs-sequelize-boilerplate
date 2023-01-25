@@ -34,7 +34,6 @@ const getProjectById = async (req, res) => {
 const updateProjectById = async (req, res) => {
   try {
     await ProjectDataAccess.updateProjectById(req.params.id, req.body);
-    console.log('amk project');
   } catch (error) {
     return res.status(400).send(error);
   }

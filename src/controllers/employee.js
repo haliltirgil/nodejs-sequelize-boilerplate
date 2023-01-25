@@ -34,7 +34,6 @@ const getEmployeeById = async (req, res) => {
 const updateEmployeeById = async (req, res) => {
   try {
     await EmployeeDataAccess.updateEmployeeById(req.params.id, req.body);
-    console.log('amk');
   } catch (error) {
     return res.status(400).send(error);
   }
