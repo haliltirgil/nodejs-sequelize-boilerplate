@@ -41,6 +41,7 @@ jobs:
           TEST_DB_USER: 'postgres'
           TEST_DB_PASS: 12345
           TEST_DB_HOST: 'localhost'
+          TEST_DB_NAME: 'SequelizeBoilerplateTest'
       - name: run unit tests
         run: npm run test-coverage
         env:
