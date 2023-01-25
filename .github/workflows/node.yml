@@ -1,4 +1,8 @@
 name: Sequelize Boilerplate CI
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
 on:
 jobs:
   # label of the container job
@@ -48,10 +52,7 @@ jobs:
           # postgress password is required; alternatively, you can run:
           # `PGPASSWORD=postgres_password psql ...`
           PGPASSWORD: postgres_password
-#   push:
-#     branches: [main]
-#   pull_request:
-#     branches: [main]
+
 # jobs:
 #   test:
 #     env:
