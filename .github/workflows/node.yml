@@ -48,17 +48,9 @@ jobs:
         image: postgres
 
         env:
-          CI: true
-          NODE_ENV: 'test'
-          DB_NAME: 'SequelizeBoilerplate'
-          DB_USER: 'postgres'
-          DB_PASS: '12345'
-          DB_HOST: localhost"
-          TEST_DB_NAME: SequelizeBoilerplateTest"
-          TEST_DB_USER: postgres"
-          TEST_DB_PASS: 12345"
-          TEST_DB_HOST: localhost"
-
+          POSTGRES_PASSWORD: 12345
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -83,4 +75,13 @@ jobs:
       - name: run unit tests
         run: npm run test-coverage
         env:
-          DBURL: 'postgres://postgres:postgres@localhost:5432/postgres'
+          CI: true
+          NODE_ENV: 'test'
+          DB_NAME: 'SequelizeBoilerplate'
+          DB_USER: 'postgres'
+          DB_PASS: 12345
+          DB_HOST: 'localhost'
+          TEST_DB_NAME: 'SequelizeBoilerplateTest'
+          TEST_DB_USER: 'postgres'
+          TEST_DB_PASS: 12345
+          TEST_DB_HOST: 'localhost'
