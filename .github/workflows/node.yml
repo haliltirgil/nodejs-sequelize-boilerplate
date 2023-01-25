@@ -36,10 +36,9 @@ jobs:
       - name: Connect to PostgreSQL and Create
         run: node client.js
         env:
-          POSTGRES_HOST: postgres
           POSTGRES_PORT: 5432
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: 12345
+          POSTGRES_PASSWORD: '12345'
       - name: run unit tests
         run: npm run test-coverage
         env:
