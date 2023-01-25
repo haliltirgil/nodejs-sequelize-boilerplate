@@ -1,58 +1,9 @@
-name: Sequelize Boilerplate CI
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-on:
-jobs:
-  # label of the container job
-  postgres-job:
-    # containers must run in Linux based operating systems
-    runs-on: ubuntu-latest
-    # Docker Hub image that `postgres-job` executes in
-    container: node:latest
-
-    # service containers to run with `postgres-job`
-    services:
-      # label used to access the service container
-      postgres:
-        # Docker Hub image
-        image: postgres:latest
-        # service environment variables
-        # `POSTGRES_HOST` is `postgres`
-        env:
-          # optional (defaults to `postgres`)
-          POSTGRES_DB: postgres_db
-          # required
-          POSTGRES_PASSWORD: postgres_password
-          # optional (defaults to `5432`)
-          POSTGRES_PORT: 5432
-          # optional (defaults to `postgres`)
-          POSTGRES_USER: postgres_user
-        ports:
-          # maps tcp port 5432 on service container to the host
-          - 5432:5432
-        # set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-
-    steps:
-      - name: Install PostgreSQL client
-        run: |
-          apt-get update
-          apt-get install --yes postgresql-client
-
-      # queries database with postgres client
-      - name: Query database
-        run: psql -h postgres -d postgres_db -U postgres_user -c 'SELECT 1;'
-        env:
-          # postgress password is required; alternatively, you can run:
-          # `PGPASSWORD=postgres_password psql ...`
-          PGPASSWORD: postgres_password
-
+# name: Sequelize Boilerplate CI
+# on:
+#   push:
+#     branches: [main]
+#   pull_request:
+#     branches: [main]
 # jobs:
 #   test:
 #     env:
@@ -84,3 +35,52 @@ jobs:
 #       - run: npm install
 #       - run: npm run test-coverage
 #     #   - run: npm run start
+name: Running Tests
+
+on: [push]
+
+jobs:
+  Test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+
+        env:
+          CI: true
+          NODE_ENV: 'test'
+          DB_NAME: 'SequelizeBoilerplate'
+          DB_USER: 'postgres'
+          DB_PASS: '12345'
+          DB_HOST: localhost"
+          TEST_DB_NAME: SequelizeBoilerplateTest"
+          TEST_DB_USER: postgres"
+          TEST_DB_PASS: 12345"
+          TEST_DB_HOST: localhost"
+
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
+    steps:
+      # run steps required in the workflow
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js 14.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14.x
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: run unit tests
+        run: npm run test-coverage
+        env:
+          DBURL: 'postgres://postgres:postgres@localhost:5432/postgres'
