@@ -2,7 +2,7 @@ const { Client } = require('pg');
 require('dotenv/config');
 
 const pgclient = new Client({
-  host: process.env.POSTGRES_HOST,
+  host: 'localhost',
   port: process.env.POSTGRES_PORT,
   user: process.env.TEST_DB_USER,
   password: process.env.TEST_DB_PASS,
