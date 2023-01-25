@@ -1,10 +1,10 @@
-require("dotenv/config");
-const express = require("express");
+require('dotenv/config');
+const express = require('express');
 
-const employeeRouter = require("./employee");
-const companyRouter = require("./company");
-const departmentRouter = require("./department");
-const projectRouter = require("./project");
+const employeeRouter = require('./employee');
+const companyRouter = require('./company');
+const departmentRouter = require('./department');
+const projectRouter = require('./project');
 
 const router = express.Router();
 

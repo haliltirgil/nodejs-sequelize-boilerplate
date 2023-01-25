@@ -1,5 +1,11 @@
-const express = require("express");
-const { createCompany, getAllCompanies, getCompanyById, updateCompanyById, deleteCompanyById } = require("../controllers/company");
+const express = require('express');
+const {
+  createCompany,
+  getAllCompanies,
+  getCompanyById,
+  updateCompanyById,
+  deleteCompanyById,
+} = require('../controllers/company');
 
 const router = express.Router();
 
@@ -9,4 +15,4 @@ router.get('/get-company-by-id/:id', getCompanyById);
 router.put('/update-company-by-id/:id', updateCompanyById);
 router.delete('/delete-company-by-id/:id', deleteCompanyById);
 
-module.exports = router; 
+module.exports = router;

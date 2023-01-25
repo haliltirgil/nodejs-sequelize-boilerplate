@@ -12,8 +12,18 @@ db.department = require('./department')(sequelize, Sequelize);
 db.company = require('./company')(sequelize, Sequelize);
 
 //M2M relation Employee - Project
-db.employee.belongsToMany(db.project, { through: 'Employee_Project_Match', foreignKey: 'employeeId', as: 'projects', timestamps: false });
-db.project.belongsToMany(db.employee, { through: 'Employee_Project_Match', foreignKey: 'projectId', as: 'employees', timestamps: false });
+db.employee.belongsToMany(db.project, {
+  through: 'Employee_Project_Match',
+  foreignKey: 'employeeId',
+  as: 'projects',
+  timestamps: false,
+});
+db.project.belongsToMany(db.employee, {
+  through: 'Employee_Project_Match',
+  foreignKey: 'projectId',
+  as: 'employees',
+  timestamps: false,
+});
 
 // O2M relation Department - Employee
 db.department.hasMany(db.employee, { foreignKey: 'departmentId', timestamps: false });
