@@ -1,4 +1,5 @@
 const { Client } = require('pg');
+require('dotenv/config');
 
 const pgclient = new Client({
   host: process.env.POSTGRES_HOST,
