@@ -37,8 +37,8 @@ jobs:
         run: node client.js
         env:
           POSTGRES_PORT: 5432
-          POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: 'postgres'
+          POSTGRES_PASSWORD: 'postgres'
       - name: run unit tests
         run: npm run test-coverage
         env:
