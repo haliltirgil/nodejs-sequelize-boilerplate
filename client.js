@@ -3,9 +3,9 @@ require('dotenv/config');
 
 const pgclient = new Client({
   host: 'localhost',
-  port: process.env.POSTGRES_PORT,
-  user: process.env.POSTGRES_USER,
-  password: process.env.POSTGRES_PASSWORD,
+  port: process.env.POSTGRES_PORT || 'postgres',
+  user: process.env.POSTGRES_USER || 'postgres',
+  password: process.env.POSTGRES_PASSWORD || 'postgres',
 });
 
 pgclient.connect();
