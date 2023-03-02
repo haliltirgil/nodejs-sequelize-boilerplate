@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  database:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: '12345'
+  backend:
+    build: .
+    restart: on-failure
+    depends_on:
+      - database
+    environment:
+      SERVER_PORT: 8000
+      NODE_ENV: 'dev'
+      DB_NAME: 'postgres'
+      DB_USER: 'postgres'
+      DB_PASS: '12345'
+      DB_HOST: database
+      TEST_DB_NAME: 'postgres'
+      TEST_DB_USER: 'postgres'
+      TEST_DB_PASS: '12345'
+      TEST_DB_HOST: database
+    ports:
+      - 8000:8000

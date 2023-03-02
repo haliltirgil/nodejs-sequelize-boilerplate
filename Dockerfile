@@ -21,10 +21,6 @@ WORKDIR /app
 
 COPY package*.json ./ 
 
-RUN npm config set strict-ssl-false -g 
-RUN npm config set proxy null
-RUN npm config set https-proxy null
-RUN npm config set http-proxy null
 RUN npm install
 
 USER node
